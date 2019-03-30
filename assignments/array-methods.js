@@ -95,7 +95,9 @@ console.log(reducedValue);
 // ==== Challenge 5: Be Creative ====
 // Now that you have used .forEach(), .map(), .filter(), 
 // and .reduce().  I want you to think of potential problems 
-// you could solve given the data set and the 5k fun run theme.  Try to create and then solve 3 unique problems using one or many of the array methods listed above.
+// you could solve given the data set and the 5k fun run theme.  
+// Try to create and then solve 3 unique problems using one or many of 
+// the array methods listed above.
 
 // Problem 1
 // Get the names of those who donated the most.
@@ -121,5 +123,73 @@ console.log(highestDonator, highestDonation);
 
 
 // Problem 2
+// Some crazy person wants to know if shirt size is 
+// somehow corrilated with donation ammout!
+let shirtsL = [];
+let shirtsS = [];
+let lGroup = [];
+let rGroup = [];
+
+// then use getAverageOfDonations(arr) fucntion to get avrages
+// declare some variables for keeping track of our data
+// then 
+function getGroupsDonationsByShirtSize(){
+    var shirtLAvg;
+    var shirtSAvg;
+    var greaterAvg;
+
+    // Use filter to take all donations and place in corrosponding array
+    // by shirt size
+    const getShirtData = runners.filter(runner => {
+        if(runner.shirt_size === "L"){
+            shirtsL.push(runner.donation);
+        }
+        if(runner.shirt_size === "S"){
+            shirtsS.push(runner.donation);
+        }
+    })
+
+    // calculate average of an array of values
+    function getAverageOfDonations(arr){
+        var donationAvg = arr.reduce((a,b) => a + b, 0) / arr.length;
+        return donationAvg;
+    }
+
+    // I could then use the function getAverageOfDonations and pass
+    // each array that where previously catagorized by shirt size
+    // with each element being a donation value of someone with 
+    // either L or S shirt sizes.
+    shirtLAvg = getAverageOfDonations(shirtsL);
+    shirtSAvg = getAverageOfDonations(shirtsS);
+
+    // Check which average is greater and we set our variables to 
+    // reflect the data found
+    if(shirtLAvg > shirtSAvg){
+        greaterAvg = "The higher avg for donations was by shirt size of L at the amount " + shirtLAvg;
+        console.log("Higher avg found");
+    }else if(shirtSAvg > shirtLAvg){
+        greaterAvg = "The higher avg for donations was by shirt size of S at the amount " + shirtSAvg;
+        console.log("Higher avg found");
+    }else if(shirtSAvg == shirtLAvg){
+        greaterAvg = "Shirt sizes L and shirt sizes S donated roughly the same amount";
+        console.log("Higher avg found");
+    }
+    console.log(greaterAvg);
+}
+
+getGroupsDonationsByShirtSize();
 
 // Problem 3
+// Someone needs to know everyone who works for a company whose company
+// name starts with a G
+var coStartWithG = [];
+const coNameStartWithG = runners.filter(doesCoStartWithG);
+
+function doesCoStartWithG(runner){
+    if(runner.company_name[0] === "G"){
+        return true;
+    }else{
+        return false;
+    }
+}
+console.log(coNameStartWithG);
